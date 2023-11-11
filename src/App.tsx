@@ -156,9 +156,7 @@ function App() {
     "..17..5.9573.241.68..5.1..27..295.18..94..3.56528....7465.8..71...159..49.8..7.53",
     "524..6.........7.13...........4..8..6......5...........418.........3..2...87.....",
   ];
-  const [game, setGame] = useState(
-    GameFactory.fromStringPuzzle(puzzlesAsString[1])
-  );
+  const [game, _] = useState(GameFactory.fromStringPuzzle(puzzlesAsString[0]));
   const [count, setCount] = useState(0);
 
   function pickPossibleChoices(cell: Cell) {
@@ -194,14 +192,16 @@ function App() {
           </tr>
         ))}
       </table>
-      <button
-        onClick={() => {
-          game.adaptPossibilities();
-          setCount(count + 1);
-        }}
-      >
-        solve
-      </button>
+      <div>
+        <button
+          onClick={() => {
+            game.adaptPossibilities();
+            setCount(count + 1);
+          }}
+        >
+          <img src="./ossoduko.svg" color="white" width={50}></img>
+        </button>
+      </div>
     </div>
   );
 }
