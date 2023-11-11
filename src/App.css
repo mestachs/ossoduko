@@ -1,0 +1,53 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.solved {
+  color: black
+}
+.unsolved {
+  font-size: large;
+}
+.block-0-0 {
+  background-color: rgb(191, 148, 19);
+}
+
+.block-0-1 {
+  background-color: rgb(171, 191, 19);
+}
+
+.block-0-2 {
+  background-color: rgb(227, 102, 20);
+}
+
+.block-1-0 {
+  background-color: rgb(191, 19, 42);
+}
+
+
+.block-1-1 {
+  background-color: rgb(19, 191, 134);
+}
+
+.block-1-2 {
+  background-color: rgb(19, 56, 191);
+}
+
+.block-2-2 {
+  background-color: rgb(191, 19, 137);
+}
+
+
+.block-2-0 {
+  background-color: rgb(19, 191, 71);
+}
+
+.block-2-1 {
+  background-color: rgb(62, 127, 232);
+}
+.block-2-3 {
+  background-color: rgb(19, 191, 134);
+}
