@@ -5,12 +5,32 @@
   text-align: center;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+td {
+  min-width: 120px;
+  min-height: 120px;
+  border: solid 2px black;
+}
+
 .solved {
   color: black
 }
 .unsolved {
   font-size: large;
 }
+.frozen {
+  background-color: black !important;
+  color: white;
+}
+
+.justSolved {
+  border: solid 2px rgb(234, 240, 234);
+
+}
+
 .block-0-0 {
   background-color: rgb(191, 148, 19);
 }
