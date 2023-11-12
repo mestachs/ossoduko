@@ -214,28 +214,25 @@ function App() {
 
   return (
     <div>
-      <table key={count}>
-        {game.cells?.map((row) => (
-          <tr>
-            {row.map((cell) => (
-              <td
-                width="120"
-                height="120"
-                title={cell.possibilities.join(" ")}
-                className={[
-                  "block-" + cell.block?.i + "-" + cell.block?.j,
-                  cell.isSolved() ? "solved" : "unsolved",
-                  justSolvedCell === cell ? "justSolved" : "",
-                  cell.frozen ? "frozen" : "",
-                ].join(" ")}
-                onClick={() => pickPossibleChoices(cell)}
-              >
-                {cell.isSolved() ? cell.toString() : " "}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </table>
+      <div className="board" key={count}>
+        {game.cells?.flatMap((row) => {
+          return row.map((cell) => (
+            <div
+              title={cell.possibilities.join(" ")}
+              className={[
+                "cell",
+                "block-" + cell.block?.i + "-" + cell.block?.j,
+                cell.isSolved() ? "solved" : "unsolved",
+                justSolvedCell === cell ? "justSolved" : "",
+                cell.frozen ? "frozen" : "",
+              ].join(" ")}
+              onClick={() => pickPossibleChoices(cell)}
+            >
+              {cell.isSolved() ? cell.toString() : " "}
+            </div>
+          ));
+        })}
+      </div>
       <div>
         <button
           onClick={() => {
