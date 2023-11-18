@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./App.css";
-import { Cell, GameFactory } from "./Game";
+import { Cell, GameFactory, Solver } from "./Game";
 import { puzzlesAsString } from "./data";
 
 function App() {
   const [game, _] = useState(
-    GameFactory.fromStringPuzzle(puzzlesAsString[0].sudoku)
+    GameFactory.fromStringPuzzle(puzzlesAsString[1].sudoku)
   );
   const [count, setCount] = useState(0);
   const [justSolvedCell, setJustSolvedCell] = useState<Cell | null | undefined>(
@@ -53,7 +53,7 @@ function App() {
           }}
         >
           {game.isSolved() ? (
-            "Yes !"
+            <span style={{ color: "green" }}>Yes ! You made it !</span>
           ) : (
             <img src="./ossoduko.svg" color="white" width={50}></img>
           )}
@@ -62,6 +62,14 @@ function App() {
           {game.isUnsolvable() &&
             "Ouch you probably made a bad move, it looks unsolvable"}
         </span>
+        <button
+          onClick={() => {
+            Solver.solve(game);
+            setCount(count + 1);
+          }}
+        >
+          Solve all
+        </button>
       </div>
     </div>
   );

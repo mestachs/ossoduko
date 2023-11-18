@@ -138,6 +138,27 @@ export class Game {
     throw new Error("no cell");
   }
 
+  public getUnsolvedCells(): Cell[] {
+    const unsolvedCells: Cell[] = [];
+    for (let block of this.getBlocks()) {
+      for (let cell of block) {
+        if (!cell.isSolved()) {
+          unsolvedCells.push(cell);
+        }
+      }
+    }
+    return unsolvedCells;
+  }
+
+  public getCandidate(): Cell | null {
+    const unsolvedCells = this.getUnsolvedCells();
+    unsolvedCells.sort((a: Cell, b: Cell) => {
+      return a.possibilities.length - b.possibilities.length;
+    });
+    debugger;
+    return unsolvedCells[0];
+  }
+
   public getBlocks(): Cell[][] {
     if (this.cells) {
       const results: Cell[][] = [];
@@ -199,12 +220,6 @@ export class GameFactory {
         const possibility = parseInt(c);
         const rowNumber = Math.floor(index / 9);
         const colNumber = index % 9;
-        console.log(
-          "index",
-          index,
-          " => ",
-          rowNumber + " " + colNumber + "  : " + possibility + " " + c
-        );
         game.play(rowNumber, colNumber, possibility, true);
       }
       index = index + 1;
@@ -224,5 +239,34 @@ export class GameFactory {
       }
     }
     return results.join("");
+  }
+}
+
+function solveBasic(game: Game, solutions: Cell[]) {
+  let cell;
+  while ((cell = game.adaptPossibilities())) {
+    solutions.push(cell);
+  }
+  return;
+}
+
+export class Solver {
+  static solve(game: Game): Cell[] {
+    const solutions: Cell[] = [];
+    while (!game.isSolved()) {
+      solveBasic(game, solutions);
+      const cell = game.getCandidate();
+      if (cell) {
+        game.play(
+          cell.coordinates.i,
+          cell.coordinates.j,
+          cell.possibilities[0]
+        );
+      }
+      if (game.isUnsolvable()) {
+        throw new Error("unsolvable");
+      }
+    }
+    return solutions;
   }
 }
